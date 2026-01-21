@@ -1,0 +1,102 @@
+#!/usr/bin/env python3
+"""
+FlameLang CLI
+Execute the smallest contradiction.
+"""
+
+import sys
+import json
+from src.core.flamelang import FlameLang
+
+
+def main():
+    """FlameLang command-line interface"""
+    flame = FlameLang()
+    
+    if len(sys.argv) < 2:
+        # No arguments - show status
+        print(json.dumps(flame.status(), indent=2))
+        return
+    
+    command = sys.argv[1].lower()
+    
+    if command == "status":
+        print(json.dumps(flame.status(), indent=2))
+    
+    elif command == "demo":
+        # Run the full demo
+        from src.core.flamelang import demo
+        demo()
+    
+    elif command == "meaning":
+        # Schedule meaning
+        if len(sys.argv) < 3:
+            print("Usage: flamelang meaning '<semantic content>'")
+            return
+        content = " ".join(sys.argv[2:])
+        unit = flame.force_meaning_to_execute(content, {})
+        result = unit.execute()
+        print(json.dumps(result, indent=2))
+    
+    elif command == "thought":
+        # Schedule cognition
+        if len(sys.argv) < 3:
+            print("Usage: flamelang thought '<thought pattern>'")
+            return
+        thought = " ".join(sys.argv[2:])
+        process = flame.make_cognition_kernel_level(thought, priority=0)
+        result = process.schedule()
+        print(json.dumps(result, indent=2))
+    
+    elif command == "myth":
+        # Compile and invoke a simple myth
+        if len(sys.argv) < 3:
+            print("Usage: flamelang myth '<myth name>'")
+            return
+        myth_name = sys.argv[2]
+        compiled = flame.compile_myth(
+            myth_name=myth_name,
+            archetype="custom",
+            narrative=f"The story of {myth_name}",
+            symbolic_meaning={"meaning": "custom"}
+        )
+        result = compiled()
+        print(json.dumps(result, indent=2))
+    
+    elif command == "run":
+        # Execute all contradictions
+        print("Executing all contradictions...")
+        results = flame.run()
+        print(json.dumps(results, indent=2))
+    
+    elif command == "help":
+        print("""
+FlameLang - The Primitive Contradiction Engine
+
+Commands:
+  status              Show system status
+  demo                Run the full demonstration
+  meaning <text>      Schedule meaning for execution
+  thought <text>      Schedule a thought at kernel-level
+  myth <name>         Compile and invoke a myth
+  run                 Execute all scheduled contradictions
+  help                Show this help message
+
+Philosophy:
+  Not: "Does it compile?"
+  But: "Does the contradiction hold together long enough to become a new primitive?"
+
+Examples:
+  flamelang meaning "This statement is being executed"
+  flamelang thought "Can thought be scheduled?"
+  flamelang myth prometheus
+  flamelang demo
+        """)
+    
+    else:
+        print(f"Unknown command: {command}")
+        print("Run 'flamelang help' for usage information")
+
+
+if __name__ == "__main__":
+    main()
