@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sagco-os"
+version = "0.1.0"
+description = "Strategic Academic Governance & Cognitive Operations System"
+readme = "README.md"
+license = {text = "Proprietary - Strategickhaos DAO LLC"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Dom Garza", email = "dom@strategickhaos.ai"}
+]
+keywords = ["cognitive", "academic", "bloom", "learning", "automation"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Education",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "mypy>=1.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+sagco = "src.core.sagco:main"
+
+[project.urls]
+Homepage = "https://github.com/strategickhaos-dao-llc/sagco-os"
+Repository = "https://github.com/strategickhaos-dao-llc/sagco-os.git"
+Documentation = "https://github.com/strategickhaos-dao-llc/sagco-os#readme"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I", "N", "W"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
