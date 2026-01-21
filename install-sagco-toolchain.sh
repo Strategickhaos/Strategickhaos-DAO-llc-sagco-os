@@ -54,9 +54,11 @@ if [ ! -f binutils-2.41.tar.xz ]; then
 fi
 
 echo "[*] Extracting binutils..."
+rm -rf binutils-2.41
 tar -xf binutils-2.41.tar.xz
 
 echo "[*] Building binutils..."
+rm -rf build-binutils
 mkdir -p build-binutils
 cd build-binutils
 ../binutils-2.41/configure \
@@ -80,6 +82,7 @@ if [ ! -f gcc-13.2.0.tar.xz ]; then
 fi
 
 echo "[*] Extracting GCC..."
+rm -rf gcc-13.2.0
 tar -xf gcc-13.2.0.tar.xz
 
 echo "[*] Downloading GCC prerequisites..."
@@ -88,6 +91,7 @@ contrib/download_prerequisites
 cd ..
 
 echo "[*] Building GCC (this takes a while)..."
+rm -rf build-gcc
 mkdir -p build-gcc
 cd build-gcc
 ../gcc-13.2.0/configure \
