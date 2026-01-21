@@ -35,6 +35,11 @@ cd ~/toolchain-build
 echo "[*] Downloading binutils $BINUTILS_VERSION..."
 if [ ! -f "binutils-$BINUTILS_VERSION.tar.gz" ]; then
     wget https://ftp.gnu.org/gnu/binutils/binutils-$BINUTILS_VERSION.tar.gz
+    # Verify download succeeded
+    if [ $? -ne 0 ]; then
+        echo "[!] Failed to download binutils"
+        exit 1
+    fi
 fi
 
 echo "[*] Building binutils..."
@@ -50,6 +55,11 @@ cd ..
 echo "[*] Downloading GCC $GCC_VERSION..."
 if [ ! -f "gcc-$GCC_VERSION.tar.gz" ]; then
     wget https://ftp.gnu.org/gnu/gcc/gcc-$GCC_VERSION/gcc-$GCC_VERSION.tar.gz
+    # Verify download succeeded
+    if [ $? -ne 0 ]; then
+        echo "[!] Failed to download GCC"
+        exit 1
+    fi
 fi
 
 echo "[*] Building GCC..."
