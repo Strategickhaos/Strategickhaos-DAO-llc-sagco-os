@@ -3,6 +3,8 @@
 **Strategic Academic Governance & Cognitive Operations System**
 
 > A cognitive operating system for academic and engineering workflows.
+> 
+> **Now with FlameLang: Forcing cognition to become schedulable.**
 
 [![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)]()
 [![Python](https://img.shields.io/badge/python-3.10+-green.svg)]()
@@ -11,6 +13,18 @@
 ## Overview
 
 SAGCO OS is a meta-cognitive system that processes academic assignments, engineering tasks, and learning objectives through a Bloom's Taxonomy-aligned layer architecture with quadrilateral collapse verification.
+
+### FlameLang: The Primitive Contradiction Engine
+
+**Not a language. Not a compiler. The conditions under which new things become possible.**
+
+FlameLang implements the core contradiction at the heart of SAGCO OS:
+
+- **Meaning is schedulable** - We force semantic content to execute
+- **Cognition is kernel-level** - We make thought processes schedulable  
+- **Mythology compiles** - We transform symbolic narratives into executable code
+
+This is not "engineering" in the traditional sense. This is **forcing what's not supposed to work to work**. We're not building within known constraints—we're **defining new primitives** by making contradictions hold together long enough to become stable.
 
 **Owner:** Strategickhaos DAO LLC  
 **Operator:** Dom (Me10101)  
@@ -65,7 +79,54 @@ pip install -e ".[dev]"
 
 ## Usage
 
-### CLI
+### FlameLang: The Primitive Contradiction Engine
+
+```python
+from src.core import FlameLang
+
+flame = FlameLang()
+
+# 1. Force meaning to be schedulable
+meaning = flame.force_meaning_to_execute(
+    "The boundary between symbol and execution dissolves",
+    context={"domain": "ontology"}
+)
+
+# 2. Make cognition kernel-level
+thought = flame.make_cognition_kernel_level(
+    "What if meaning itself could be scheduled?",
+    priority=0  # Highest kernel priority
+)
+
+# 3. Compile mythology into executable code
+prometheus = flame.compile_myth(
+    myth_name="prometheus",
+    archetype="fire_bringer",
+    narrative="Stealing fire from the gods to give to humanity",
+    symbolic_meaning={
+        "fire": "knowledge",
+        "theft": "transgression",
+        "gift": "enlightenment"
+    }
+)
+
+# 4. Execute all contradictions
+results = flame.run()
+
+# The question: Does the contradiction hold together?
+print(results["primitive_status"])  # "NEW_PRIMITIVE_STABLE"
+
+# 5. Invoke compiled mythology
+myth_result = flame.scheduler.invoke_myth("prometheus", seeker="humanity")
+```
+
+Or run the demo:
+
+```bash
+python -m src.core.flamelang
+```
+
+### SAGCO OS CLI
 
 ```bash
 # Check system status
@@ -127,13 +188,16 @@ sagco-os/
 ├── src/
 │   ├── core/
 │   │   ├── __init__.py
-│   │   └── sagco.py          # Main kernel
+│   │   ├── sagco.py          # SAGCO kernel
+│   │   └── flamelang.py      # FlameLang primitive engine
 │   ├── layers/               # Cognitive layer implementations
 │   ├── engines/              # Processing engines
 │   └── integrations/         # External integrations
 ├── config/                   # Configuration files
 ├── docs/                     # Documentation
 ├── tests/                    # Test suite
+│   ├── test_sagco.py        # SAGCO tests
+│   └── test_flamelang.py    # FlameLang tests
 ├── scripts/                  # Utility scripts
 ├── pyproject.toml           # Package configuration
 ├── README.md
@@ -183,11 +247,57 @@ ruff check src/
 
 ## Roadmap
 
-- [ ] v0.1.0 - Core kernel with all layers
+- [x] v0.1.0 - Core kernel with all layers
+- [x] v0.1.0 - FlameLang primitive contradiction engine
 - [ ] v0.2.0 - Academic integration (IT-145, CS, Cyber agents)
 - [ ] v0.3.0 - Full quadrilateral collapse implementation
 - [ ] v0.4.0 - REST API endpoints
 - [ ] v0.5.0 - Kubernetes deployment
+
+## Philosophy: Beyond Engineering
+
+### What We're Not Building
+
+| Label | Why It's Wrong |
+|-------|----------------|
+| Engineer | Engineers work within known constraints. We're **defining** constraints. |
+| Developer | Developers implement specs. We're **inventing** specs. |
+| Architect | Architects design within paradigms. We're **creating** paradigms. |
+| Researcher | Researchers extend knowledge. We're **violating category boundaries**. |
+
+### What We're Actually Building
+
+We're not building software. We're not building an OS. We're not even building a compiler.
+
+**We're building the conditions under which new things become possible.**
+
+Turing didn't "engineer" computation. He **forced logic to execute**.
+
+Shannon didn't "engineer" information. He **made noise mathematically tractable**.
+
+SAGCO/FlameLang doesn't "engineer" cognition. We're **forcing cognition to become schedulable**.
+
+### The Core Question
+
+Not: "Does it compile?"
+
+But: **"Does the contradiction hold together long enough to become a new primitive?"**
+
+The answer is in the code. The primitives are stable. The violations execute.
+
+---
+
+### The Three Primitives
+
+1. **Meaning can't be scheduled** → We make it schedulable
+2. **Cognition can't be a kernel** → We make it kernel-level
+3. **Mythology can't compile** → We make it compile
+
+These aren't metaphors. They're **executable contradictions** that hold together.
+
+That's not beneath engineering. That's *before* engineering. 
+
+Engineering comes *after* we succeed.
 
 ## License
 

@@ -39,6 +39,7 @@ dev = [
 
 [project.scripts]
 sagco = "src.core.sagco:main"
+flamelang = "src.core.flamelang:main"
 
 [project.urls]
 Homepage = "https://github.com/strategickhaos-dao-llc/sagco-os"
