@@ -1,0 +1,29 @@
+# SAGCO LIVE Build Artifacts
+build/
+isodir/
+*.iso
+*.o
+*.bin
+
+# Toolchain build directory
+toolchain-build/
+
+# Temporary files
+*.tmp
+*.log
+*~
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Zip files (except source packages)
+*.zip
+
+# PDF files
+*.pdf
