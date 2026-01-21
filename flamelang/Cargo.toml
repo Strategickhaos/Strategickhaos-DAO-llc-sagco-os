@@ -1,0 +1,42 @@
+[package]
+name = "flamelang"
+version = "2.0.0"
+edition = "2021"
+authors = ["Strategickhaos DAO LLC <security@strategickhaos.ai>"]
+description = "FlameLang: Physics-native programming language with 5-layer transformation pipeline"
+license = "MIT"
+repository = "https://github.com/strategickhaos/dao-llc/skh-flamelang"
+keywords = ["compiler", "flamelang", "llvm", "physics", "dna-computing"]
+categories = ["compilers", "development-tools"]
+
+[features]
+default = []
+native-compile = ["inkwell"]  # Toggle LLVM
+
+[[bin]]
+name = "flamec"
+path = "src/main.rs"
+
+[lib]
+name = "flamelang"
+path = "src/lib.rs"
+
+[dependencies]
+thiserror = "1.0"
+inkwell = { version = "0.4", features = ["llvm17-0"], optional = true }  # LLVM backend
+logos = "0.14"  # Lexer
+lalrpop = "0.20"  # Parser
+
+[dev-dependencies]
+# Testing - add criterion for benches
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+opt-level = 3  # Full opt
+
+[profile.dev]
+opt-level = 1
+debug = true  # For proofs
