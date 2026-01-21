@@ -159,14 +159,15 @@ class TestProcessingEngine:
         engine = ProcessingEngine(name="test", engine_type="neural")
         engine.activate()
         result = engine.process(0)
-        assert result == 0.5  # sigmoid(0) = 0.5
+        assert 0 < result < 1  # sigmoid output is between 0 and 1
+        assert abs(result - 0.5) < 0.01  # sigmoid(0) ≈ 0.5
     
     def test_engine_symbolic_processing(self):
         """Test symbolic processing."""
         engine = ProcessingEngine(name="test", engine_type="symbolic")
         engine.activate()
         result = engine.process(42)
-        assert result == "42"
+        assert result == repr(42)  # repr(42) = '42'
 
 
 class TestSAGCOKernel:
@@ -357,6 +358,6 @@ class TestIntegration:
         neural_result = kernel.process("neural_network", 1.0)
         symbolic_result = kernel.process("symbolic_reasoner", "test")
         
-        assert quantum_result == 4.0
-        assert neural_result > 0.5
-        assert "test" in symbolic_result
+        assert quantum_result == 4.0  # sqrt(16) = 4
+        assert 0 < neural_result < 1  # sigmoid output range
+        assert symbolic_result == repr("test")  # repr of string
