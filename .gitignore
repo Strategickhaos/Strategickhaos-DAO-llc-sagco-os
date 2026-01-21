@@ -19,10 +19,6 @@ Thumbs.db
 tmp/
 temp/
 
-# Toolchain
-$HOME/src/
-$HOME/opt/
-
 # PDFs and archives (keeping original repository files)
 # *.pdf
 # *.zip

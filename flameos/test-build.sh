@@ -50,8 +50,8 @@ else
 fi
 
 # Check file sizes
-ISO_SIZE=$(stat -f%z sagco-live.iso 2>/dev/null || stat -c%s sagco-live.iso)
-KERNEL_SIZE=$(stat -f%z build/kernel.bin 2>/dev/null || stat -c%s build/kernel.bin)
+ISO_SIZE=$(wc -c < sagco-live.iso)
+KERNEL_SIZE=$(wc -c < build/kernel.bin)
 
 echo "    [INFO] ISO size: $((ISO_SIZE / 1024 / 1024)) MB"
 echo "    [INFO] Kernel size: $((KERNEL_SIZE / 1024)) KB"
