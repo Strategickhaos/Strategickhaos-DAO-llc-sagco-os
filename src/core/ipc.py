@@ -100,6 +100,9 @@ class EventBus:
     
     def _process_event(self, event: Event) -> None:
         """Process single event"""
+        from src.core.logger import get_logger
+        logger = get_logger("event_bus")
+        
         with self.lock:
             handlers = self.subscribers.get(event.event_type, []).copy()
             # Also notify wildcard subscribers
@@ -110,7 +113,8 @@ class EventBus:
                 handler(event)
             except Exception as e:
                 self.stats["errors"] += 1
-                print(f"[EVENT BUS ERROR] Handler failed for {event.event_type}: {e}")
+                logger.error(f"Handler failed for {event.event_type}", 
+                           exception=e, event_id=event.event_id)
         
         with self.lock:
             self.stats["processed"] += 1
@@ -120,6 +124,9 @@ class EventBus:
     
     def _worker_loop(self) -> None:
         """Background worker for processing events"""
+        from src.core.logger import get_logger
+        logger = get_logger("event_bus.worker")
+        
         while self.running:
             try:
                 event = self.event_queue.get(timeout=0.1)
@@ -128,7 +135,7 @@ class EventBus:
             except queue.Empty:
                 continue
             except Exception as e:
-                print(f"[EVENT BUS ERROR] Worker loop error: {e}")
+                logger.error("Worker loop error", exception=e)
     
     def start(self) -> None:
         """Start event bus worker"""

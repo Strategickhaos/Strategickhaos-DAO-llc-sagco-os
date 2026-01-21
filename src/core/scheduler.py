@@ -192,6 +192,9 @@ class Scheduler:
     
     def _execute_task(self, task: Task) -> None:
         """Execute a single task"""
+        from src.core.logger import get_logger
+        logger = get_logger("scheduler")
+        
         with self.lock:
             task.status = TaskStatus.RUNNING
             task.started_at = datetime.now()
@@ -210,7 +213,7 @@ class Scheduler:
                 task.error = e
                 task.completed_at = datetime.now()
                 self.stats["failed"] += 1
-            print(f"[SCHEDULER ERROR] Task {task.name} failed: {e}")
+            logger.error(f"Task {task.name} failed", exception=e, task_id=task.task_id)
     
     def _worker_loop(self) -> None:
         """Worker thread loop"""
@@ -241,6 +244,9 @@ class Scheduler:
     
     def _recurring_loop(self) -> None:
         """Check and schedule recurring tasks"""
+        from src.core.logger import get_logger
+        logger = get_logger("scheduler.recurring")
+        
         while self.running:
             try:
                 time.sleep(1.0)  # Check every second
@@ -266,7 +272,7 @@ class Scheduler:
                             recurring.run_count += 1
             
             except Exception as e:
-                print(f"[SCHEDULER ERROR] Recurring loop error: {e}")
+                logger.error("Recurring loop error", exception=e)
     
     def start(self) -> None:
         """Start scheduler workers"""

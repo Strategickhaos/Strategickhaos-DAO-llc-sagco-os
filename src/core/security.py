@@ -139,27 +139,40 @@ class SecurityManager:
         self._initialize_default_users()
     
     def _initialize_default_users(self):
-        """Create default system users"""
+        """
+        Create default system users
+        
+        WARNING: Default passwords are for development/demo only.
+        In production, these should be changed immediately or disabled.
+        Consider setting SAGCO_REQUIRE_PASSWORD_CHANGE=true in production.
+        """
         # Default operator (Dom)
         dom = User(
             username="dom",
             user_id="dom-me10101",
             roles=[Role.OPERATOR, Role.ADMIN],
-            metadata={"full_name": "Dom Garza", "organization": "Strategickhaos DAO LLC"}
+            metadata={
+                "full_name": "Dom Garza",
+                "organization": "Strategickhaos DAO LLC",
+                "password_must_change": True  # Force password change on first production use
+            }
         )
         self.users["dom"] = dom
-        self.password_hashes["dom"] = self._hash_password("changeme")  # Default password
+        # SECURITY WARNING: Change default password in production!
+        self.password_hashes["dom"] = self._hash_password("changeme")
         
         # System admin
         admin = User(
             username="admin",
             user_id="sys-admin",
             roles=[Role.ADMIN],
+            metadata={"password_must_change": True}
         )
         self.users["admin"] = admin
+        # SECURITY WARNING: Change default password in production!
         self.password_hashes["admin"] = self._hash_password("admin")
         
-        # Guest account
+        # Guest account (read-only, safe for production)
         guest = User(
             username="guest",
             user_id="guest",
@@ -322,9 +335,21 @@ class SecurityManager:
         }
     
     def audit_log(self, action: str, user: User, details: Dict[str, Any]) -> None:
-        """Log security audit event"""
-        # Placeholder for audit logging
-        # In production, this would write to a secure audit log
+        """
+        Log security audit event
+        
+        Note: This is a placeholder implementation for v0.1.0.
+        Production implementation (v0.2.0) will include:
+        - Persistent audit log to secure storage
+        - Tamper-proof log signing
+        - Log rotation and archival
+        - Integration with SIEM systems
+        
+        For now, logs are output to structured logger for visibility.
+        """
+        from src.core.logger import get_logger
+        
+        logger = get_logger("security.audit")
         event = {
             "timestamp": datetime.now().isoformat(),
             "action": action,
@@ -332,8 +357,12 @@ class SecurityManager:
             "user_id": user.user_id,
             "details": details
         }
-        # TODO: Write to persistent audit log
-        print(f"[SECURITY AUDIT] {json.dumps(event)}")
+        
+        # Log as JSON to security audit logger
+        logger.info(f"SECURITY AUDIT: {action}", **event)
+        
+        # TODO (v0.2.0): Write to persistent audit log database
+        # TODO (v0.2.0): Implement log signing for tamper detection
 
 
 def get_security_manager() -> SecurityManager:
