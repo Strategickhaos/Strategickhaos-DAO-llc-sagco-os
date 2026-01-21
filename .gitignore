@@ -1,0 +1,28 @@
+# Build artifacts
+build/
+*.o
+*.bin
+*.iso
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+
+# Toolchain
+$HOME/src/
+$HOME/opt/
+
+# PDFs and archives (keeping original repository files)
+# *.pdf
+# *.zip
