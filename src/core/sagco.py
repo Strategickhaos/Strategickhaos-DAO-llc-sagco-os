@@ -67,6 +67,69 @@ class DopamineScore:
     timestamp: datetime = field(default_factory=datetime.now)
 
 
+class Task:
+    """
+    Task class demonstrating encapsulation principles.
+    
+    Encapsulates task data with private attributes and exposes functionality
+    through public methods. This prevents direct manipulation of internal state
+    and maintains data integrity.
+    """
+    
+    def __init__(self, title: str, points: int, urgency: int):
+        """
+        Initialize a new task.
+        
+        Args:
+            title: Task title/description
+            points: Point value for completing the task
+            urgency: Urgency factor (1-5 scale)
+        """
+        # Private attributes (Python convention: prefix with _)
+        self._title = title
+        self._points = points
+        self._urgency = urgency
+        self._status = "pending"  # pending, in_progress, completed
+    
+    def calculatePriority(self) -> int:
+        """
+        Calculate task priority based on points and urgency.
+        
+        Returns:
+            Priority score (points * urgency)
+        """
+        return self._points * self._urgency
+    
+    def markComplete(self) -> None:
+        """Mark the task as completed."""
+        self._status = "completed"
+    
+    def markInProgress(self) -> None:
+        """Mark the task as in progress."""
+        self._status = "in_progress"
+    
+    # Getter methods for private attributes
+    def getTitle(self) -> str:
+        """Get the task title."""
+        return self._title
+    
+    def getPoints(self) -> int:
+        """Get the task points."""
+        return self._points
+    
+    def getUrgency(self) -> int:
+        """Get the task urgency."""
+        return self._urgency
+    
+    def getStatus(self) -> str:
+        """Get the task status."""
+        return self._status
+    
+    def __repr__(self) -> str:
+        """String representation of the task."""
+        return f"Task(title='{self._title}', points={self._points}, urgency={self._urgency}, status='{self._status}')"
+
+
 class CognitiveLayer:
     """Base class for all cognitive layers"""
     

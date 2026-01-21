@@ -15,6 +15,7 @@ from src.core.sagco import (
     SynthesisLayer,
     QuadrilateralCollapse,
     DopamineRefinery,
+    Task,
 )
 
 
@@ -180,6 +181,79 @@ class TestDopamineRefinery:
         assert prioritized[0].dopamine_value == 150
         assert prioritized[1].dopamine_value == 105
         assert prioritized[2].dopamine_value == 40
+
+
+class TestTask:
+    """Test suite for Task class demonstrating OOP encapsulation"""
+    
+    def test_task_initialization(self):
+        """Test task is properly initialized"""
+        task = Task("Implement OOP principles", 30, 5)
+        assert task.getTitle() == "Implement OOP principles"
+        assert task.getPoints() == 30
+        assert task.getUrgency() == 5
+        assert task.getStatus() == "pending"
+    
+    def test_calculate_priority(self):
+        """Test priority calculation (encapsulated logic)"""
+        task = Task("Complete discussion post", 20, 4)
+        priority = task.calculatePriority()
+        assert priority == 80  # 20 * 4
+    
+    def test_mark_complete(self):
+        """Test marking task as complete"""
+        task = Task("Debug code", 15, 3)
+        assert task.getStatus() == "pending"
+        task.markComplete()
+        assert task.getStatus() == "completed"
+    
+    def test_mark_in_progress(self):
+        """Test marking task as in progress"""
+        task = Task("Write tests", 25, 2)
+        assert task.getStatus() == "pending"
+        task.markInProgress()
+        assert task.getStatus() == "in_progress"
+    
+    def test_encapsulation_private_attributes(self):
+        """Test that private attributes follow naming convention"""
+        task = Task("Test encapsulation", 10, 1)
+        # Verify that private attributes are prefixed with underscore
+        assert hasattr(task, "_title")
+        assert hasattr(task, "_points")
+        assert hasattr(task, "_urgency")
+        assert hasattr(task, "_status")
+    
+    def test_task_repr(self):
+        """Test string representation"""
+        task = Task("Review PR", 5, 2)
+        repr_str = repr(task)
+        assert "Review PR" in repr_str
+        assert "5" in repr_str
+        assert "2" in repr_str
+        assert "pending" in repr_str
+    
+    def test_multiple_tasks_priority_comparison(self):
+        """Test comparing priorities of multiple tasks"""
+        task1 = Task("Low priority", 10, 1)
+        task2 = Task("High priority", 30, 5)
+        task3 = Task("Medium priority", 20, 3)
+        
+        assert task2.calculatePriority() > task3.calculatePriority()
+        assert task3.calculatePriority() > task1.calculatePriority()
+        assert task2.calculatePriority() == 150
+        assert task3.calculatePriority() == 60
+        assert task1.calculatePriority() == 10
+    
+    def test_task_state_transitions(self):
+        """Test valid state transitions"""
+        task = Task("State test", 15, 2)
+        assert task.getStatus() == "pending"
+        
+        task.markInProgress()
+        assert task.getStatus() == "in_progress"
+        
+        task.markComplete()
+        assert task.getStatus() == "completed"
 
 
 if __name__ == "__main__":
